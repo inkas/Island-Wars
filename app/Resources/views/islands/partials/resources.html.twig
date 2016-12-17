@@ -1,0 +1,14 @@
+{% for resource in island.resources %}
+<li>
+    <span class="header-resource">
+    {% if resource.resource.name == 'Gold' %}
+        <img src="{{ asset('images/gold_shadow.png') }}" alt="Gold">
+    {% elseif resource.resource.name == 'Stones' %}
+        <img src="{{ asset('images/stone_shadow.png') }}" alt="Stones">
+    {% elseif resource.resource.name == 'Woods' %}
+        <img src="{{ asset('images/wood_shadow.png') }}" alt="Woods">
+    {% endif %}
+    </span>
+    <span class="resource-text">{{ resource.amount }}</span>
+</li>
+{% endfor %}

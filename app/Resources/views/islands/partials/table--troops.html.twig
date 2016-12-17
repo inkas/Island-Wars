@@ -1,0 +1,11 @@
+{% for troop in troops %}
+    <th>
+        {% if troop.name == 'Rifleman' %}
+            <img src="{{ asset('images/rifleman.png') }}" alt="{{ troop.name }}" class="resource-small"/>
+        {% elseif troop.name == 'Tank' %}
+            <img src="{{ asset('images/tank.png') }}" alt="{{ troop.name }}" class="resource-small"/>
+        {% elseif troop.name == 'Battleship' %}
+            <img src="{{ asset('images/battleship.png') }}" alt="{{ troop.name }}" class="resource-small"/>
+        {% endif %}
+    </th>
+{% endfor %}

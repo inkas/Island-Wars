@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <div class="col-xs-12">
+        <table class="table table-bordered table-custom">
+            <thead>
+                <tr>
+                    <th>Buildings</th>
+                    <th>Level</th>
+                    {% include ':islands/partials:table--resources.html.twig' %}
+                    <th>Time</th>
+                    <th>Upgrade</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for building in buildings %}
+                <tr>
+                    <td class="text-center">
+                        <div class="building-image text-center">
+                            {% if building.building.name == 'Artillery' %}
+                                <img src="{{ asset('images/artillery.png') }}" alt="{{ building.building.name }}"/>
+                            {% elseif building.building.name == 'Command Center' %}
+                                <img src="{{ asset('images/command_center.png') }}" alt="{{ building.building.name }}"/>
+                            {% elseif building.building.name == 'Gold Mine' %}
+                                <img src="{{ asset('images/mine.png') }}" alt="{{ building.building.name }}"/>
+                            {% elseif building.building.name == 'Sawmill' %}
+                                <img src="{{ asset('images/sawmill.png') }}" alt="{{ building.building.name }}"/>
+                            {% endif %}
+                        </div>
+                        <strong class="text-sm">{{ building.building.name }}</strong>
+                    </td>
+                    <td class="level">{{ building.level }}</td>
+                    {% for costResource in building.building.costs %}
+                        <td>{{ costResource.amount * (building.level+1) }} </td>
+                    {% endfor %}
+                    <td>{{ timeAmount[loop.index0] }}</td>
+                    <td>
+                        {% if finishesOn[loop.index0] matches '/^\\d+$/' and finishesOn[loop.index0] > 0 %}
+                            <div id="upgrade-item-{{ loop.index0 }}">
+                                <span class="loading-animation"><img src="{{ asset('images/loading.gif') }}" alt="Loading"/></span>
+                                <span class="countdown"></span>
+                            </div>
+                        {% else %}
+                            {% if upgradesDisabled == true %}
+                                <span class="">Another upgrade is in progress.</span>
+                            {% else %}
+                                <a href="{{ path('upgrade_building', {id: building.building.id}) }}">Level {{ building.level + 1 }}</a>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+    {% for building in buildings %}
+        {% include ':islands/partials:countdown.html.twig' %}
+    {% endfor %}
+    </script>
+{% endblock %}

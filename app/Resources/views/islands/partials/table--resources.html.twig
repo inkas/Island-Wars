@@ -1,0 +1,11 @@
+{% for resource in resources %}
+    <th>
+        {% if resource.name == 'Gold' %}
+            <img src="{{ asset('images/gold_shadow.png') }}" alt="{{ resource.name }}" class="resource-small"/>
+        {% elseif resource.name == 'Stones' %}
+            <img src="{{ asset('images/stone_shadow.png') }}" alt="{{ resource.name }}" class="resource-small"/>
+        {% elseif resource.name == 'Woods' %}
+            <img src="{{ asset('images/wood_shadow.png') }}" alt="{{ resource.name }}" class="resource-small"/>
+        {% endif %}
+    </th>
+{% endfor %}

@@ -1,0 +1,13 @@
+{% if finishesOn[loop.index0] matches '/^\\d+$/' and finishesOn[loop.index0] > 0 %}
+    var finishTime{{ loop.index0 }} = new Date();
+    finishTime{{ loop.index0 }}.setSeconds(finishTime{{ loop.index0 }}.getSeconds() + {{ finishesOn[loop.index0] }});
+
+    $("#upgrade-item-{{ loop.index0 }} .countdown").countdown(finishTime{{ loop.index0 }}, function(event) {
+    $(this).text(event.strftime('%H:%M:%S'));
+    }).on('finish.countdown', function(e) {
+    $(this).parent().html(
+    '<span class="text-success">Upgrade completed!</span>'
+    );
+    });
+
+{% endif %}

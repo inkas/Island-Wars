@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <div class="col-xs-12">
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+        <table class="table table-bordered table-custom">
+            <thead>
+            <tr>
+                <th>Troops</th>
+                <th>Damage</th>
+                <th>Health</th>
+                {% include ':islands/partials:table--resources.html.twig' %}
+                <th>Count</th>
+                <th>Training Time</th>
+                <th>Add Troops</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for troop in troops %}
+                    <tr>
+                        <td class="text-center">
+                            <div class="troop-image text-center">
+                                {% if troop.troop.name == 'Rifleman' %}
+                                    <img src="{{ asset('images/rifleman.png') }}" alt="{{ troop.troop.name }}"/>
+                                {% elseif troop.troop.name == 'Tank' %}
+                                    <img src="{{ asset('images/tank.png') }}" alt="{{ troop.troop.name }}"/>
+                                {% elseif troop.troop.name == 'Battleship' %}
+                                    <img src="{{ asset('images/battleship.png') }}" alt="{{ troop.troop.name }}"/>
+                                {% endif %}
+                            </div>
+                            <strong class="text-sm">{{ troop.troop.name }}</strong>
+                        </td>
+                        <td>
+                            <div>{{ troop.troop.attack }}</div>
+                            <div><span class="text-warning">+ {{ extraLife.damage }}% Artillery Level</span></div>
+                        </td>
+                        <td>
+                            <div>{{ troop.troop.health }}</div>
+                            <div><span class="text-warning">+ {{ extraLife.health }}% Artillery Level</span></div>
+                        </td>
+                        {% for costResource in nextLevelResourcesCost[troop.troop.id] %}
+                            <td>{{ costResource }}</td>
+                        {% endfor %}
+                        <td>
+                            {% if finishesOn[loop.index0] matches '/^\\d+$/' and finishesOn[loop.index0] > 0 %}
+                                <span class="text-grey">
+                                    {{ troop.amount }}
+                                </span>
+                            {% else %}
+                                {{ troop.amount }}
+                            {% endif %}
+                        </td>
+                        <td>{{ nextLevelTrainingTimeCost[troop.troop.id] }}</td>
+                        <td>
+                            {% if finishesOn[loop.index0] matches '/^\\d+$/' and finishesOn[loop.index0] > 0 %}
+                                <div id="upgrade-item-{{ loop.index0 }}">
+                                    <span class="loading-animation"><img src="{{ asset('images/loading.gif') }}" alt="Loading"/></span>
+                                    <span class="countdown"></span>
+                                </div>
+                            {% else %}
+                                <div class="text-center">
+                                    {{ form_start(forms[troop.troop.name]) }}
+                                    {{ form_widget(forms[troop.troop.name]) }}
+                                    {{ form_end(forms[troop.troop.name]) }}
+                                    <span class="text-danger">MAX {{ maxTroopCount[troop.troop.id] }} troops</span>
+                                </div>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        {% for troop in troops %}
+        {# Match integer #}
+            {% include ':islands/partials:countdown.html.twig' %}
+        {% endfor %}
+    </script>
+{% endblock %}

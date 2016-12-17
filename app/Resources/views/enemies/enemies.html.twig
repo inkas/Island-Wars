@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <div class="col-xs-12">
+        {% for flashMessage in app.session.flashbag.get('warning') %}
+            <div class="alert alert-danger">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+        <table class="table table-bordered table-custom">
+            <thead>
+            <tr>
+                <th>Enemy</th>
+                <th>Location</th>
+                {% include ':islands/partials:table--troops.html.twig' %}
+                {% include ':islands/partials:table--resources.html.twig' %}
+                <th>Message</th>
+                <th>Attack</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for island in playerIslands %}
+                <tr>
+                    <td>{{ island.player.username }}</td>
+                    <td>{{ island.x }} : {{ island.y }}</td>
+                    {% for troop in playerTroops[island.id] %}
+                        <td>{{ troop }}</td>
+                    {% endfor %}
+                    {% for resource in island.resources %}
+                        <td>{{ resource.amount }}</td>
+                    {% endfor %}
+                    <td>
+                        {{ form_start(forms[island.player.id]) }}
+                        {{ form_widget(forms[island.player.id]) }}
+                        {{ form_end(forms[island.player.id]) }}
+                    </td>
+                    <td>
+                        <a href="{{ path('attack', {id: island.id}) }}" class="btn btn-danger btn-xs">Attack</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'profile' %}
+
+{% block main %}
+    <div class="col-xs-12">
+        <h2 class="text-center text-username">{{ player.username }}</h2>
+        <ul class="nav nav-tabs nav-justified">
+            {% for island in player.islands %}
+                <li role="presentation" class="{% if island.id == islandId %}active{% endif %}">
+                    <a href="{{ path('change_island', {id: island.id}) }}">
+                        Island #{{ loop.index }} ({{ island.x }} : {{ island.y }})
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="buildings-troops-btns text-center">
+            <a href="{{ path('buildings_list') }}" class="btn btn-info">Buildings</a>
+            <a href="{{ path('troops_list') }}" class="btn btn-info">Troops</a>
+            <a href="{{ path('update_resources') }}" class="btn btn-warning">Get Resources</a>
+            <a href="{{ path('enemies') }}" class="btn btn-danger">Enemies</a>
+        </div>
+    </div>
+{% endblock %}
