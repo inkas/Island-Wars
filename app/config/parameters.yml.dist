@@ -9,7 +9,7 @@ parameters:
     #database_url:      'sqlite:///%kernel.root_dir%/data/blog.sqlite'
 
     database_url: ~
-	monolog_action_level: error
+    monolog_action_level: error
 
     # Uncomment this line to use a MySQL database instead of SQLite:
     #
