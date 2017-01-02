@@ -69,6 +69,7 @@
             "file": "app/config/parameters.yml",
             "env-map": {
                 "database_url": "DATABASE_URL",
+				"monolog_action_level": "LOG_LEVEL",
                 "secret": "SYMFONY_SECRET"
             }
         }

@@ -15,7 +15,7 @@ monolog:
     handlers:
         main:
             type:         fingers_crossed
-            action_level: error
+            action_level: %monolog_action_level%
             handler:      nested
         nested:
             type:  stream
@@ -23,3 +23,6 @@ monolog:
             level: debug
         console:
             type:  console
+doctrine:
+    dbal:
+        url: "%database_url%"
