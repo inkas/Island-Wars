@@ -8,6 +8,7 @@ parameters:
     # the path must be relative or else it will not work on Windows
     #database_url:      'sqlite:///%kernel.root_dir%/data/blog.sqlite'
 
+
     database_url: ~
     monolog_action_level: error
 
