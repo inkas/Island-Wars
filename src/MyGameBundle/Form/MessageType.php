@@ -20,7 +20,7 @@ class MessageType extends AbstractType
                 'attr' => ['class' => 'input-sm full-width']
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'Train', 'attr' => ['class' => 'btn-block btn-sm btn-info']
+                'label' => 'Send', 'attr' => ['class' => 'btn-block btn-sm btn-info']
             ]);
     }
 

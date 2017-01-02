@@ -134,30 +134,6 @@ class BattleController extends IslandAwareController
 
         $em->flush();
 
-    //    $activiy = $this->getDoctrine()->getRepository(Activity::class)
-
-
-//        $islandResources = $this->getDoctrine()->getRepository(IslandResource::class)->findBy(['island' => $id]);
-//
-//        $enemyIsland = $this->getDoctrine()->getRepository(Island::class)->find($id);
-//        $enemyIsland->getResources();
-//
-//        $em = $this->getDoctrine()->getManager();
-//        /** @var IslandResource $i */
-//        foreach ($enemyIsland as $i){
-////            foreach($i->getResource()->getIslandResources() as $resource){
-////                $resource->;
-////                $island->setAmount($island->getAmount() + $resource->getAmount() * 0.2);
-////                $resource->setAmount($resource->getAmount() - $resource->getAmount() * 0.2);
-////
-////            }
-//
-//            $i->
-//        }
-//
-////        foreach ($island->get)
-
-
         return $this->redirectToRoute("user_profile");
     }
 }

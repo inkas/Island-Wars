@@ -129,7 +129,7 @@ class TroopController extends IslandAwareController
                         ($request->request->get('amount_Battleship') && $totalIslandTroopAmount <= self::MAX_BATTLESHIPS)){
 
                         //  Check if there's already a process of this troop type
-                        if(!count($troop->getTroopProcess())){
+                        if(!$troopProcess){
                             $finishesOn = new \DateTime('now');
                             $finishesOn->add(new \DateInterval('PT' . $trainTime * $newIslandTroop->getAmount() . 'S'));
 
